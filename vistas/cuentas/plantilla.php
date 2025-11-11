@@ -9,14 +9,21 @@ $valorFormateado = $cuenta->valorFormateado();
     <title>Cuenta de Cobro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .no-print { display: none; } }
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none; }
+        }
+        @page {
+            size: Letter;
+            margin: 1in;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans p-4 md:p-8">
     <div class="max-w-4xl mx-auto mb-4 text-right no-print">
-        <button onclick="window.print()" class="bg-green-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-green-700 transition">Imprimir / PDF</button>
+        <button onclick="imprimirCuenta()" class="bg-green-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-green-700 transition">Imprimir / PDF</button>
     </div>
-    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
+    <div id="area-cuenta" class="max-w-4xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
         <div class="p-8 md:p-12">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
                 <div class="mb-6 md:mb-0">
@@ -76,5 +83,18 @@ $valorFormateado = $cuenta->valorFormateado();
             </footer>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/print-js@1.6.0/dist/print.min.js"></script>
+    <script>
+        function imprimirCuenta() {
+            printJS({
+                printable: 'area-cuenta',
+                type: 'html',
+                scanStyles: true,
+                documentTitle: 'Cuenta <?= htmlspecialchars($cuenta->numeroCuenta) ?>',
+                style: '@page { size: Letter; margin: 1in; }'
+            });
+        }
+    </script>
 </body>
 </html>

@@ -9,14 +9,21 @@ $valorFormateado = $cotizacion->valorFormateado();
     <title>Cotización</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .no-print { display: none; } }
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none; }
+        }
+        @page {
+            size: Letter;
+            margin: 1in;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans p-4 md:p-8">
     <div class="max-w-4xl mx-auto mb-4 text-right no-print">
-        <button onclick="window.print()" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition">Imprimir / PDF</button>
+        <button onclick="imprimirCotizacion()" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition">Imprimir / PDF</button>
     </div>
-    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
+    <div id="area-cotizacion" class="max-w-4xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
         <div class="p-8 md:p-12">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
                 <div class="mb-6 md:mb-0">
@@ -63,5 +70,18 @@ $valorFormateado = $cotizacion->valorFormateado();
             </footer>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/print-js@1.6.0/dist/print.min.js"></script>
+    <script>
+        function imprimirCotizacion() {
+            printJS({
+                printable: 'area-cotizacion',
+                type: 'html',
+                scanStyles: true,
+                documentTitle: 'Cotización <?= htmlspecialchars($cotizacion->numeroCotizacion) ?>',
+                style: '@page { size: Letter; margin: 1in; }'
+            });
+        }
+    </script>
 </body>
 </html>
