@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Emisores (
     Ciudad VARCHAR(100),
     InformacionBancaria TEXT,
     NotaLegal TEXT,
+    FirmaImagenURL VARCHAR(255),
     FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID)
 );
 

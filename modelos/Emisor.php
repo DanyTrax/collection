@@ -16,6 +16,7 @@ class Emisor
     public ?string $ciudad;
     public ?string $informacionBancaria;
     public ?string $notaLegal;
+    public ?string $firmaImagenUrl;
 
     public static function obtenerPorUsuarioId(int $usuarioId): ?self
     {
@@ -47,7 +48,7 @@ class Emisor
             self::crearPorDefecto($usuarioId);
         }
 
-        $consulta = $pdo->prepare('UPDATE Emisores SET NombreCompleto = :nombre, DocumentoIdentidad = :documento, Email = :email, Telefono = :telefono, Direccion = :direccion, Ciudad = :ciudad, InformacionBancaria = :infoBancaria, NotaLegal = :notaLegal WHERE UsuarioID = :usuario');
+        $consulta = $pdo->prepare('UPDATE Emisores SET NombreCompleto = :nombre, DocumentoIdentidad = :documento, Email = :email, Telefono = :telefono, Direccion = :direccion, Ciudad = :ciudad, InformacionBancaria = :infoBancaria, NotaLegal = :notaLegal, FirmaImagenURL = :firma WHERE UsuarioID = :usuario');
 
         return $consulta->execute([
             'nombre' => $datos['NombreCompleto'],
@@ -58,6 +59,7 @@ class Emisor
             'ciudad' => $datos['Ciudad'] ?? null,
             'infoBancaria' => $datos['InformacionBancaria'] ?? null,
             'notaLegal' => $datos['NotaLegal'] ?? null,
+            'firma' => $datos['FirmaImagenURL'] ?? null,
             'usuario' => $usuarioId,
         ]);
     }
@@ -75,6 +77,7 @@ class Emisor
         $emisor->ciudad = $fila['Ciudad'] ?? null;
         $emisor->informacionBancaria = $fila['InformacionBancaria'] ?? null;
         $emisor->notaLegal = $fila['NotaLegal'] ?? null;
+        $emisor->firmaImagenUrl = $fila['FirmaImagenURL'] ?? null;
         return $emisor;
     }
 }

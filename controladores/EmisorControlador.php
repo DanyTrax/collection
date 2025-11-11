@@ -34,6 +34,7 @@ class EmisorControlador
             'Ciudad' => trim($_POST['Ciudad'] ?? ''),
             'InformacionBancaria' => trim($_POST['InformacionBancaria'] ?? ''),
             'NotaLegal' => trim($_POST['NotaLegal'] ?? ''),
+            'FirmaImagenURL' => trim($_POST['FirmaImagenURL'] ?? ''),
         ];
 
         Emisor::actualizar($usuarioId, $datos);

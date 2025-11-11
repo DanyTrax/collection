@@ -33,12 +33,18 @@
                 <input type="text" name="Direccion" id="Direccion" class="form-control" value="<?= htmlspecialchars($emisor->direccion ?? '') ?>">
             </div>
             <div class="form-group">
-                <label for="InformacionBancaria">Información bancaria</label>
-                <textarea name="InformacionBancaria" id="InformacionBancaria" class="form-control" rows="3"><?= htmlspecialchars($emisor->informacionBancaria ?? '') ?></textarea>
+                <label for="InformacionBancaria">Información de pago</label>
+                <textarea name="InformacionBancaria" id="InformacionBancaria" class="form-control" rows="4" placeholder="Ejemplo: Cuenta de ahorros Bancolombia 000-000000-0"><?= htmlspecialchars($emisor->informacionBancaria ?? '') ?></textarea>
+                <small class="form-text text-muted">Este texto aparecerá en la sección “Información de Pago” de las cuentas de cobro y cotizaciones.</small>
             </div>
             <div class="form-group">
                 <label for="NotaLegal">Nota legal / términos</label>
-                <textarea name="NotaLegal" id="NotaLegal" class="form-control" rows="3"><?= htmlspecialchars($emisor->notaLegal ?? '') ?></textarea>
+                <textarea name="NotaLegal" id="NotaLegal" class="form-control" rows="3" placeholder="Nota legal o términos adicionales"><?= htmlspecialchars($emisor->notaLegal ?? '') ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="FirmaImagenURL">URL de imagen de firma</label>
+                <input type="url" name="FirmaImagenURL" id="FirmaImagenURL" class="form-control" placeholder="https://misitio.com/imagenes/firma.png" value="<?= htmlspecialchars($emisor->firmaImagenUrl ?? '') ?>">
+                <small class="form-text text-muted">Opcional. Debe ser una URL absoluta a una imagen (PNG/JPG). Se mostrará en la sección de firma.</small>
             </div>
         </div>
         <div class="card-footer text-right">
