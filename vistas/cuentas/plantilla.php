@@ -20,6 +20,11 @@ $anioTexto = $fechaEmision->format('Y');
         body {
             background: #e2e8f0;
         }
+        #area-cuenta {
+            width: min(1100px, 95vw);
+            max-width: 1100px;
+            border-radius: 32px;
+        }
         @page {
             size: Letter;
             margin: 15mm;
@@ -32,8 +37,11 @@ $anioTexto = $fechaEmision->format('Y');
             }
             .no-print { display: none !important; }
             #area-cuenta {
+                width: 8.5in !important;
+                max-width: 8.5in !important;
                 box-shadow: none !important;
                 border: none !important;
+                margin: 0 !important;
             }
         }
     </style>
