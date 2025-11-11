@@ -13,7 +13,6 @@ $tituloPagina = $titulo ?? 'Autenticación';
     <style>
         .login-box {
             width: auto;
-            max-width: 420px;
         }
     </style>
 </head>
