@@ -30,10 +30,13 @@ $anioTexto = $fechaEmision->format('Y');
         }
         @page {
             size: Letter;
-            margin: 20mm;
+            margin: 15mm;
+        }
+        body {
+            background: #f1f5f9;
         }
         .page-wrapper {
-            width: 7.5in;
+            width: 7.15in;
             max-width: 100%;
         }
     </style>
@@ -44,9 +47,9 @@ $anioTexto = $fechaEmision->format('Y');
         <button onclick="descargarCuenta()" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition">Descargar PDF</button>
     </div>
 
-    <div id="area-cuenta" class="page-wrapper mx-auto bg-white shadow-xl rounded-3xl overflow-hidden border border-gray-200">
-        <div class="p-8 md:p-12">
-            <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 pb-8 border-b border-gray-200">
+    <div id="area-cuenta" class="page-wrapper mx-auto bg-white shadow-xl rounded-3xl overflow-hidden border border-gray-200 text-[0.92rem] leading-relaxed">
+        <div class="p-6 md:p-8">
+            <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-gray-200">
                 <div class="space-y-1">
                     <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
                     <?php if (!empty($datosEmisor['Telefono'])): ?>
@@ -77,7 +80,7 @@ $anioTexto = $fechaEmision->format('Y');
                 </div>
             </header>
 
-            <section class="mt-8 mb-8 bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <section class="mt-6 mb-6 bg-gray-50 border border-gray-200 rounded-2xl p-5">
                 <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Señor(a)</h3>
                 <p class="text-lg font-semibold text-gray-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
                 <?php if (!empty($datosCliente['NIT_CC'])): ?>
@@ -99,11 +102,11 @@ $anioTexto = $fechaEmision->format('Y');
                 </div>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8">
                 <h3 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-4 border-b border-gray-200 pb-2">Concepto</h3>
                 <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
 
-                <div class="mt-8 flex justify-end">
+                <div class="mt-6 flex justify-end">
                     <table class="w-full md:w-1/2 text-right text-sm border border-gray-200 rounded-xl overflow-hidden">
                         <tbody>
                             <tr class="bg-gray-50 text-gray-600">
@@ -120,14 +123,14 @@ $anioTexto = $fechaEmision->format('Y');
             </section>
 
             <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                <section class="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
+                <section class="bg-blue-50 border border-blue-200 rounded-2xl p-5 mb-6">
                     <h4 class="text-base font-semibold text-blue-900 mb-3">Información de Pago</h4>
                     <p class="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                 </section>
             <?php endif; ?>
 
             <footer class="pt-10 border-t border-gray-200">
-                <div class="mb-8 text-center">
+                <div class="mb-6 text-center">
                     <?php if (!empty($datosEmisor['FirmaImagenURL'])): ?>
                         <img src="<?= htmlspecialchars($datosEmisor['FirmaImagenURL']) ?>" alt="Firma" class="h-20 mx-auto mb-2 object-contain">
                     <?php else: ?>
@@ -141,7 +144,7 @@ $anioTexto = $fechaEmision->format('Y');
             </footer>
 
             <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                <section class="mt-10 bg-gray-50 border border-gray-200 rounded-2xl p-6">
+                <section class="mt-8 bg-gray-50 border border-gray-200 rounded-2xl p-5">
                     <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Nota</h4>
                     <p class="text-xs text-gray-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                 </section>
@@ -169,7 +172,7 @@ $anioTexto = $fechaEmision->format('Y');
                 return;
             }
             html2pdf(elemento, {
-                margin: 20,
+                margin: 10,
                 filename: 'cuenta-<?= htmlspecialchars($cuenta->numeroCuenta) ?>.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true },
