@@ -61,10 +61,10 @@ $anioTexto = $fechaEmision->format('Y');
 
     <div class="w-full px-4 pb-8 flex justify-center">
         <div id="area-cuenta" class="preview-wrapper bg-white border border-slate-200 shadow-xl">
-            <div class="preview-content space-y-8">
-                <header class="grid gap-6 md:grid-cols-2">
+            <div class="preview-content space-y-6">
+                <header class="grid gap-4 md:grid-cols-2">
                     <div class="space-y-1">
-                        <h2 class="text-2xl font-semibold text-slate-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
+                        <h2 class="text-xl font-medium text-slate-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
                         <?php if (!empty($datosEmisor['Telefono'])): ?>
                             <p class="text-sm text-slate-500">Tel. <?= htmlspecialchars($datosEmisor['Telefono']) ?></p>
                         <?php endif; ?>
@@ -78,22 +78,22 @@ $anioTexto = $fechaEmision->format('Y');
                             <p class="text-sm text-slate-500">Documento: <?= htmlspecialchars($datosEmisor['DocumentoIdentidad']) ?></p>
                         <?php endif; ?>
                     </div>
-                    <div class="md:text-right space-y-3">
-                        <p class="text-xs uppercase tracking-[0.4em] text-slate-400">Cuenta de Cobro</p>
-                        <p class="text-4xl font-black text-slate-900 tracking-[0.35em]">Nº <?= htmlspecialchars($cuenta->numeroCuenta) ?></p>
-                        <dl class="text-sm text-slate-600 space-y-1">
-                            <div><dt class="font-semibold inline">Ciudad y fecha:</dt> <dd class="inline"><?= htmlspecialchars(($datosEmisor['Ciudad'] ?? '')) ?>, <?= htmlspecialchars($cuenta->fechaEmision) ?></dd></div>
+                    <div class="md:text-right space-y-2">
+                        <p class="text-[10px] uppercase tracking-[0.25em] text-slate-400">Cuenta de Cobro</p>
+                        <p class="text-2xl font-semibold text-slate-900 tracking-[0.2em]">Nº <?= htmlspecialchars($cuenta->numeroCuenta) ?></p>
+                        <dl class="text-[12px] text-slate-600 space-y-1">
+                            <div><dt class="font-medium inline">Ciudad y fecha:</dt> <dd class="inline"><?= htmlspecialchars(($datosEmisor['Ciudad'] ?? '')) ?>, <?= htmlspecialchars($cuenta->fechaEmision) ?></dd></div>
                             <?php if (!empty($cuenta->fechaVencimiento)): ?>
-                                <div><dt class="font-semibold inline">Vence:</dt> <dd class="inline"><?= htmlspecialchars($cuenta->fechaVencimiento) ?></dd></div>
+                                <div><dt class="font-medium inline">Vence:</dt> <dd class="inline"><?= htmlspecialchars($cuenta->fechaVencimiento) ?></dd></div>
                             <?php endif; ?>
-                            <div><dt class="font-semibold inline">Estado:</dt> <dd class="inline"><?= htmlspecialchars($cuenta->estado) ?></dd></div>
+                            <div><dt class="font-medium inline">Estado:</dt> <dd class="inline"><?= htmlspecialchars($cuenta->estado) ?></dd></div>
                         </dl>
                     </div>
                 </header>
 
-                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0 space-y-1">
+                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0 space-y-0.5">
                     <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Señor(a)</h3>
-                    <p class="text-lg font-semibold text-slate-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
+                    <p class="text-base font-medium text-slate-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
                     <?php if (!empty($datosCliente['NIT_CC'])): ?>
                         <p class="text-sm text-slate-600">NIT / CC: <?= htmlspecialchars($datosCliente['NIT_CC']) ?></p>
                     <?php endif; ?>
@@ -107,21 +107,21 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                 </section>
 
-                <section class="space-y-4">
-                    <div class="pt-4">
-                        <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wide border-b border-slate-200 pb-2">Concepto</h3>
-                        <p class="text-[12px] text-slate-600 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
+                <section class="space-y-3">
+                    <div class="pt-3">
+                        <h3 class="text-xs font-semibold text-slate-900 uppercase tracking-wide border-b border-slate-200 pb-1">Concepto</h3>
+                        <p class="text-[11px] text-slate-600 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
                     </div>
                     <div class="flex justify-end">
-                        <table class="w-full md:w-1/2 text-right text-sm border border-slate-200 rounded-2xl overflow-hidden">
+                        <table class="w-full md:w-1/2 text-right text-[12px] border border-slate-200 rounded-2xl overflow-hidden">
                             <tbody>
                                 <tr class="bg-slate-50 text-slate-600">
-                                    <td class="px-4 py-3 font-semibold">Subtotal</td>
-                                    <td class="px-4 py-3 font-mono text-slate-800">$<?= $valorFormateado ?></td>
+                                    <td class="px-3 py-2 font-medium">Subtotal</td>
+                                    <td class="px-3 py-2 font-mono text-slate-800">$<?= $valorFormateado ?></td>
                                 </tr>
-                                <tr class="border-t-2 border-slate-900 text-slate-900">
-                                    <td class="px-4 py-4 text-lg font-bold uppercase">Valor total</td>
-                                    <td class="px-4 py-4 text-lg font-bold font-mono">$<?= $valorFormateado ?></td>
+                                <tr class="border-t border-slate-400 text-slate-900">
+                                    <td class="px-3 py-3 text-base font-semibold uppercase">Valor total</td>
+                                    <td class="px-3 py-3 text-base font-semibold font-mono">$<?= $valorFormateado ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -129,9 +129,9 @@ $anioTexto = $fechaEmision->format('Y');
                 </section>
 
                 <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-0">
-                        <h4 class="text-base font-semibold text-blue-900 mb-2">Información de Pago</h4>
-                        <p class="text-sm text-blue-800 whitespace-pre-wrap leading-tight"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-0 space-y-1">
+                        <h4 class="text-sm font-medium text-blue-900">Información de Pago</h4>
+                        <p class="text-[11px] text-blue-800 whitespace-pre-wrap leading-tight"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                     </section>
                 <?php endif; ?>
 
@@ -146,9 +146,9 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                     <p class="text-xs text-slate-500 text-center">Se firma en <?= htmlspecialchars($datosEmisor['Ciudad'] ?? '________') ?>, a los <?= htmlspecialchars($diaTexto) ?> días del mes de <?= htmlspecialchars($mesNombre) ?> de <?= htmlspecialchars($anioTexto) ?>.</p>
                     <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0">
-                            <h4 class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2">Nota</h4>
-                            <p class="text-[11px] text-slate-500 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
+                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0 space-y-1">
+                            <h4 class="text-[10px] font-medium text-slate-500 uppercase tracking-wide">Nota</h4>
+                            <p class="text-[10px] text-slate-500 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                         </section>
                     <?php endif; ?>
                 </footer>
