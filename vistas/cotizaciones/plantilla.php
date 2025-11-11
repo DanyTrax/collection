@@ -30,11 +30,11 @@ $anioTexto = $fechaEmision->format('Y');
         }
         @page {
             size: Letter;
-            margin: 15mm;
+            margin: 10mm;
         }
         @media print {
             body {
-                background: #ffffff !important;
+                background: #e2e8f0 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -42,10 +42,10 @@ $anioTexto = $fechaEmision->format('Y');
             .preview-wrapper {
                 width: 8.27in !important;
                 max-width: 8.27in !important;
-                border-radius: 0 !important;
-                border: none !important;
-                box-shadow: none !important;
-                margin: 0 !important;
+                border-radius: 32px !important;
+                border: 1px solid #cbd5f5 !important;
+                box-shadow: 0 12px 40px rgba(15, 23, 42, 0.2) !important;
+                margin: 0 auto !important;
             }
             .preview-content {
                 padding: 1rem 1.9rem !important;
