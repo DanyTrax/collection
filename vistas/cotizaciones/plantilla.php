@@ -26,7 +26,7 @@ $anioTexto = $fechaEmision->format('Y');
             border-radius: 32px;
         }
         .preview-content {
-            padding: 0 2rem;
+            padding: 1rem 2rem;
         }
         @page {
             size: Letter;
@@ -48,12 +48,12 @@ $anioTexto = $fechaEmision->format('Y');
                 margin: 0 !important;
             }
             .preview-content {
-                padding: 0 1.9rem !important;
+                padding: 1rem 1.9rem !important;
             }
         }
     </style>
 </head>
-<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-relaxed">
+<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight">
     <div class="w-full flex justify-center gap-3 no-print pt-6 pb-4">
         <button onclick="imprimirCotizacion()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg shadow hover:bg-emerald-700 transition">Imprimir</button>
         <button onclick="descargarCotizacion()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">Descargar PDF</button>
@@ -110,7 +110,7 @@ $anioTexto = $fechaEmision->format('Y');
                 <section class="space-y-4">
                     <div class="pt-4">
                         <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wide border-b border-slate-200 pb-2">Concepto</h3>
-                        <p class="text-[12px] text-slate-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->concepto)) ?></p>
+                        <p class="text-[12px] text-slate-600 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->concepto)) ?></p>
                     </div>
                     <div class="flex justify-end">
                         <table class="w-full md:w-1/2 text-right text-sm border border-slate-200 rounded-2xl overflow-hidden">
@@ -131,14 +131,14 @@ $anioTexto = $fechaEmision->format('Y');
                 <?php if (!empty($cotizacion->terminos)): ?>
                     <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-0">
                         <h4 class="text-base font-semibold text-blue-900 mb-2">Términos y Condiciones</h4>
-                        <p class="text-sm text-blue-800 whitespace-pre-wrap leading-relaxed"><?= nl2br(htmlspecialchars($cotizacion->terminos)) ?></p>
+                        <p class="text-sm text-blue-800 whitespace-pre-wrap leading-tight"><?= nl2br(htmlspecialchars($cotizacion->terminos)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
                     <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-0">
                         <h4 class="text-base font-semibold text-blue-900 mb-2">Información de Pago</h4>
-                        <p class="text-sm text-blue-800 whitespace-pre-wrap leading-relaxed"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
+                        <p class="text-sm text-blue-800 whitespace-pre-wrap leading-tight"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                     </section>
                 <?php endif; ?>
 
@@ -155,7 +155,7 @@ $anioTexto = $fechaEmision->format('Y');
                     <?php if (!empty($datosEmisor['NotaLegal'])): ?>
                         <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0">
                             <h4 class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2">Nota</h4>
-                            <p class="text-[11px] text-slate-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
+                            <p class="text-[11px] text-slate-500 leading-tight whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                         </section>
                     <?php endif; ?>
                 </footer>
@@ -183,7 +183,7 @@ $anioTexto = $fechaEmision->format('Y');
             clon.style.width = '8.27in';
             clon.style.maxWidth = '8.27in';
             clon.style.margin = '0 auto';
-            clon.querySelector('.preview-content').style.padding = '0 1.9rem';
+            clon.querySelector('.preview-content').style.padding = '1rem 1.9rem';
             clon.classList.add('no-print');
             document.body.appendChild(clon);
             return clon;
