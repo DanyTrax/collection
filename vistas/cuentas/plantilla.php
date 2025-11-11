@@ -38,7 +38,13 @@ $anioTexto = $fechaEmision->format('Y');
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .no-print { display: none !important; }
+            .no-print,
+            header,
+            footer,
+            nav,
+            .preview-wrapper + * {
+                display: none !important;
+            }
             .preview-wrapper {
                 width: 8.27in !important;
                 max-width: 8.27in !important;
@@ -53,7 +59,7 @@ $anioTexto = $fechaEmision->format('Y');
         }
     </style>
 </head>
-<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight">
+<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight" data-print-container="area-cuenta">
     <div class="w-full flex justify-center gap-3 no-print pt-6 pb-4">
         <button onclick="imprimirCuenta()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg shadow hover:bg-emerald-700 transition">Imprimir</button>
         <button onclick="descargarCuenta()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">Descargar PDF</button>
@@ -178,7 +184,7 @@ $anioTexto = $fechaEmision->format('Y');
         function descargarCuenta() {
             const clon = prepararNodoParaPDF('area-cuenta');
             html2pdf().set({
-                margin: 0,
+                margin: [5, 5, 5, 5],
                 filename: 'cuenta-<?= htmlspecialchars($cuenta->numeroCuenta) ?>.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true },

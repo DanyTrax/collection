@@ -21,7 +21,7 @@ $anioTexto = $fechaEmision->format('Y');
             background: #e2e8f0;
         }
         .preview-wrapper {
-            width: min(1100px, 95vw);
+            width: min(1080px, 95vw);
             max-width: 1100px;
             border-radius: 32px;
         }
@@ -30,7 +30,7 @@ $anioTexto = $fechaEmision->format('Y');
         }
         @page {
             size: Letter;
-            margin: 10mm;
+            margin: 0;
         }
         @media print {
             body {
@@ -38,7 +38,13 @@ $anioTexto = $fechaEmision->format('Y');
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .no-print { display: none !important; }
+            .no-print,
+            header,
+            footer,
+            nav,
+            .preview-wrapper + * {
+                display: none !important;
+            }
             .preview-wrapper {
                 width: 8.27in !important;
                 max-width: 8.27in !important;
@@ -53,7 +59,7 @@ $anioTexto = $fechaEmision->format('Y');
         }
     </style>
 </head>
-<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight">
+<body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight" data-print-container="area-cotizacion">
     <div class="w-full flex justify-center gap-3 no-print pt-6 pb-4">
         <button onclick="imprimirCotizacion()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg shadow hover:bg-emerald-700 transition">Imprimir</button>
         <button onclick="descargarCotizacion()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">Descargar PDF</button>
@@ -185,7 +191,7 @@ $anioTexto = $fechaEmision->format('Y');
         function descargarCotizacion() {
             const clon = prepararNodoParaPDF('area-cotizacion');
             html2pdf().set({
-                margin: 0,
+                margin: [5, 5, 5, 5],
                 filename: 'cotizacion-<?= htmlspecialchars($cotizacion->numeroCotizacion) ?>.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true },
