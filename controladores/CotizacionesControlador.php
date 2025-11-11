@@ -135,12 +135,32 @@ class CotizacionesControlador
         $datosEmisor = $cotizacion->datosEmisor ?: $this->snapshotEmisor(Emisor::obtenerPorUsuarioId($usuarioId));
         $datosCliente = $cotizacion->datosCliente ?: $this->snapshotCliente(Cliente::obtenerPorId($cotizacion->clienteID, $usuarioId));
 
-        $this->render('cotizaciones/plantilla', [
+        $this->renderPlano('cotizaciones/plantilla', [
             'cotizacion' => $cotizacion,
             'datosEmisor' => $datosEmisor,
             'datosCliente' => $datosCliente,
-            'titulo' => 'Cotización ' . $cotizacion->numeroCotizacion,
-        ], 'invitado');
+        ]);
+    }
+
+    public function pdf(int $id): void
+    {
+        $usuarioId = $this->obtenerUsuarioId();
+        $cotizacion = Cotizacion::obtenerPorId((int) $id, $usuarioId);
+
+        if (!$cotizacion) {
+            http_response_code(404);
+            echo 'Cotización no encontrada';
+            return;
+        }
+
+        $datosEmisor = $cotizacion->datosEmisor ?: $this->snapshotEmisor(Emisor::obtenerPorUsuarioId($usuarioId));
+        $datosCliente = $cotizacion->datosCliente ?: $this->snapshotCliente(Cliente::obtenerPorId($cotizacion->clienteID, $usuarioId));
+
+        $this->renderPlano('cotizaciones/pdf', [
+            'cotizacion' => $cotizacion,
+            'datosEmisor' => $datosEmisor,
+            'datosCliente' => $datosCliente,
+        ]);
     }
 
     public function convertir(int $id): void
@@ -232,6 +252,7 @@ class CotizacionesControlador
             'Ciudad' => $emisor->ciudad,
             'InformacionBancaria' => $emisor->informacionBancaria,
             'NotaLegal' => $emisor->notaLegal,
+            'FirmaImagenURL' => $emisor->firmaImagenUrl,
         ];
     }
 
@@ -275,5 +296,17 @@ class CotizacionesControlador
         $contenido = ob_get_clean();
 
         include $rutaLayout;
+    }
+
+    private function renderPlano(string $vista, array $datos = []): void
+    {
+        extract($datos);
+        $rutaVista = __DIR__ . '/../vistas/' . $vista . '.php';
+
+        if (!file_exists($rutaVista)) {
+            throw new \RuntimeException('Vista no encontrada: ' . $vista);
+        }
+
+        include $rutaVista;
     }
 }

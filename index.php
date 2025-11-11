@@ -86,6 +86,9 @@ $router->post('/cotizaciones/borrar', [$cotizacionesControlador, 'borrar']);
 $router->get('/cotizaciones/imprimir/{id}', function ($id) use ($cotizacionesControlador) {
     $cotizacionesControlador->imprimir((int) $id);
 });
+$router->get('/cotizaciones/pdf/{id}', function ($id) use ($cotizacionesControlador) {
+    $cotizacionesControlador->pdf((int) $id);
+});
 $router->post('/cotizaciones/convertir/{id}', function ($id) use ($cotizacionesControlador) {
     $cotizacionesControlador->convertir((int) $id);
 });
@@ -102,6 +105,9 @@ $router->post('/cuentas/editar/{id}', function ($id) use ($cuentasControlador) {
 $router->post('/cuentas/borrar', [$cuentasControlador, 'borrar']);
 $router->get('/cuentas/imprimir/{id}', function ($id) use ($cuentasControlador) {
     $cuentasControlador->imprimir((int) $id);
+});
+$router->get('/cuentas/pdf/{id}', function ($id) use ($cuentasControlador) {
+    $cuentasControlador->pdf((int) $id);
 });
 
 $router->resolver($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

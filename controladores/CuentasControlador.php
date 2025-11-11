@@ -126,20 +126,30 @@ class CuentasControlador
         $cuenta = CuentaCobro::obtenerPorId((int) $id, $usuarioId);
 
         if (!$cuenta) {
-            http_response_code(404);
-            echo 'Cuenta de cobro no encontrada';
-            return;
+            header('Location: /cuentas');
+            exit;
         }
 
         $datosEmisor = $cuenta->datosEmisor ?: $this->snapshotEmisor(Emisor::obtenerPorUsuarioId($usuarioId));
         $datosCliente = $cuenta->datosCliente ?: $this->snapshotCliente(Cliente::obtenerPorId($cuenta->clienteID, $usuarioId));
 
-        $this->render('cuentas/plantilla', [
-            'cuenta' => $cuenta,
-            'datosEmisor' => $datosEmisor,
-            'datosCliente' => $datosCliente,
-            'titulo' => 'Cuenta de cobro ' . $cuenta->numeroCuenta,
-        ], 'invitado');
+        $this->renderPlano('cuentas/print', compact('cuenta', 'datosEmisor', 'datosCliente'));
+    }
+
+    public function pdf(int $id): void
+    {
+        $usuarioId = $this->obtenerUsuarioId();
+        $cuenta = CuentaCobro::obtenerPorId((int) $id, $usuarioId);
+
+        if (!$cuenta) {
+            header('Location: /cuentas');
+            exit;
+        }
+
+        $datosEmisor = $cuenta->datosEmisor ?: $this->snapshotEmisor(Emisor::obtenerPorUsuarioId($usuarioId));
+        $datosCliente = $cuenta->datosCliente ?: $this->snapshotCliente(Cliente::obtenerPorId($cuenta->clienteID, $usuarioId));
+
+        $this->renderPlano('cuentas/pdf', compact('cuenta', 'datosEmisor', 'datosCliente'));
     }
 
     private function mapearDatos(array $post, int $usuarioId, int $clienteId, int $emisorId, Cliente $cliente, Emisor $emisor): array
@@ -177,6 +187,7 @@ class CuentasControlador
             'Ciudad' => $emisor->ciudad,
             'InformacionBancaria' => $emisor->informacionBancaria,
             'NotaLegal' => $emisor->notaLegal,
+            'FirmaImagenURL' => $emisor->firmaImagenUrl,
         ];
     }
 
@@ -236,5 +247,17 @@ class CuentasControlador
         $contenido = ob_get_clean();
 
         include $rutaLayout;
+    }
+
+    private function renderPlano(string $vista, array $datos = []): void
+    {
+        extract($datos);
+        $rutaVista = __DIR__ . '/../vistas/' . $vista . '.php';
+
+        if (!file_exists($rutaVista)) {
+            throw new \RuntimeException('Vista no encontrada: ' . $vista);
+        }
+
+        include $rutaVista;
     }
 }
