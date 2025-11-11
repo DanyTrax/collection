@@ -26,7 +26,7 @@ $anioTexto = $fechaEmision->format('Y');
             border-radius: 32px;
         }
         .preview-content {
-            padding: 3rem;
+            padding: 2.2rem 2rem;
         }
         @page {
             size: Letter;
@@ -48,7 +48,7 @@ $anioTexto = $fechaEmision->format('Y');
                 margin: 0 !important;
             }
             .preview-content {
-                padding: 2.5rem 2.2rem !important;
+                padding: 2.1rem 1.9rem !important;
             }
         }
     </style>
@@ -61,8 +61,8 @@ $anioTexto = $fechaEmision->format('Y');
 
     <div class="w-full px-4 pb-8 flex justify-center">
         <div id="area-cotizacion" class="preview-wrapper bg-white border border-slate-200 shadow-xl">
-            <div class="preview-content space-y-10">
-                <header class="grid gap-10 md:grid-cols-2">
+            <div class="preview-content space-y-8">
+                <header class="grid gap-6 md:grid-cols-2">
                     <div class="space-y-1">
                         <h2 class="text-2xl font-semibold text-slate-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
                         <?php if (!empty($datosEmisor['Telefono'])): ?>
@@ -91,7 +91,7 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                 </header>
 
-                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-8 py-6 space-y-1">
+                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-5 space-y-1">
                     <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Cliente</h3>
                     <p class="text-lg font-semibold text-slate-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
                     <?php if (!empty($datosCliente['NIT_CC'])): ?>
@@ -107,7 +107,7 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                 </section>
 
-                <section class="space-y-6">
+                <section class="space-y-4">
                     <div>
                         <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wide border-b border-slate-200 pb-2">Concepto</h3>
                         <p class="text-[12px] text-slate-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->concepto)) ?></p>
@@ -129,20 +129,20 @@ $anioTexto = $fechaEmision->format('Y');
                 </section>
 
                 <?php if (!empty($cotizacion->terminos)): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-8 py-6">
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-5">
                         <h4 class="text-base font-semibold text-blue-900 mb-2">Términos y Condiciones</h4>
                         <p class="text-sm text-blue-800 whitespace-pre-wrap leading-relaxed"><?= nl2br(htmlspecialchars($cotizacion->terminos)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-8 py-6">
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-5">
                         <h4 class="text-base font-semibold text-blue-900 mb-2">Información de Pago</h4>
                         <p class="text-sm text-blue-800 whitespace-pre-wrap leading-relaxed"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                     </section>
                 <?php endif; ?>
 
-                <footer class="space-y-6 pt-4 border-t border-slate-200">
+                <footer class="space-y-4 pt-3 border-t border-slate-200">
                     <div class="text-center space-y-2">
                         <?php if (!empty($datosEmisor['FirmaImagenURL'])): ?>
                             <img src="<?= htmlspecialchars($datosEmisor['FirmaImagenURL']) ?>" alt="Firma" class="h-16 mx-auto object-contain">
@@ -153,7 +153,7 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                     <p class="text-xs text-slate-500 text-center">Se expide en <?= htmlspecialchars($datosEmisor['Ciudad'] ?? '________') ?>, a los <?= htmlspecialchars($diaTexto) ?> días del mes de <?= htmlspecialchars($mesNombre) ?> de <?= htmlspecialchars($anioTexto) ?>.</p>
                     <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-8 py-5">
+                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-4">
                             <h4 class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2">Nota</h4>
                             <p class="text-[11px] text-slate-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                         </section>
