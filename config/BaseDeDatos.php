@@ -10,9 +10,9 @@ use PDOException;
 class BaseDeDatos
 {
     private const DB_HOST = 'localhost';
-    private const DB_NOMBRE = 'cuentas_cobro';
-    private const DB_USUARIO = 'root';
-    private const DB_PASSWORD = '';
+    private const DB_NOMBRE = 'dowgroupcol_dbcollection';
+    private const DB_USUARIO = 'dowgroupcol_dbcollection_user';
+    private const DB_PASSWORD = '8W]Hr~7.~S,XpKm';
     private const DB_CHARSET = 'utf8mb4';
 
     private static ?PDO $instancia = null;
