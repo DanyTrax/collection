@@ -60,13 +60,12 @@ $anioTexto = $fechaEmision->format('Y');
     </style>
 </head>
 <body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight" data-print-container="area-cuenta">
-    <div class="w-full flex justify-center gap-3 no-print pt-6 pb-4">
-        <button onclick="imprimirCuenta()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg shadow hover:bg-emerald-700 transition">Imprimir</button>
-        <button onclick="descargarCuenta()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">Descargar PDF</button>
-    </div>
-
     <div class="w-full px-4 pb-8 flex justify-center">
-        <div id="area-cuenta" class="preview-wrapper bg-white border border-slate-200 shadow-xl">
+        <div class="no-print flex justify-center gap-3 absolute top-6">
+            <button onclick="imprimirCuenta()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg shadow hover:bg-emerald-700 transition">Imprimir</button>
+            <button onclick="descargarCuenta()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">Descargar PDF</button>
+        </div>
+        <div id="area-cuenta" class="preview-wrapper bg-white border border-slate-200 shadow-xl mt-20">
             <div class="preview-content space-y-6">
                 <header class="grid gap-4 md:grid-cols-2">
                     <div class="space-y-1">
