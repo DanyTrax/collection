@@ -13,7 +13,7 @@ $anioTexto = $fechaEmision->format('Y');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
+    <style id="template-styles">
         :root {
             color-scheme: light;
         }
@@ -33,29 +33,7 @@ $anioTexto = $fechaEmision->format('Y');
             margin: 0;
         }
         @media print {
-            body {
-                background: #e2e8f0 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .no-print,
-            header,
-            footer,
-            nav,
-            .preview-wrapper + * {
-                display: none !important;
-            }
-            .preview-wrapper {
-                width: 8.27in !important;
-                max-width: 8.27in !important;
-                border-radius: 32px !important;
-                border: 1px solid #cbd5f5 !important;
-                box-shadow: 0 12px 40px rgba(15, 23, 42, 0.2) !important;
-                margin: 0 auto !important;
-            }
-            .preview-content {
-                padding: 1rem 1.9rem !important;
-            }
+            .no-print { display: none !important; }
         }
     </style>
 </head>
@@ -171,7 +149,16 @@ $anioTexto = $fechaEmision->format('Y');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function imprimirCotizacion() {
-            window.print();
+            const contenido = document.getElementById('area-cotizacion').outerHTML;
+            const estilos = document.getElementById('template-styles').innerHTML;
+            const ventana = window.open('', '_blank', 'width=1000,height=800');
+            ventana.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Cotización <?= htmlspecialchars($cotizacion->numeroCotizacion) ?></title><script src="https://cdn.tailwindcss.com"></script><style>${estilos}</style></head><body class=\"min-h-screen font-sans text-slate-700 text-[13px] leading-tight bg-slate-100\"><div class=\"w-full px-4 pb-8 flex justify-center\">${contenido}</div></body></html>`);
+            ventana.document.close();
+            ventana.focus();
+            ventana.onload = () => {
+                ventana.print();
+                ventana.close();
+            };
         }
 
         function prepararNodoParaPDF(id) {
