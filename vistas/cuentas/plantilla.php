@@ -33,7 +33,11 @@ $anioTexto = $fechaEmision->format('Y');
             margin: 10mm;
         }
         @media print {
-            .no-print { display: none !important; }
+            .no-print,
+            .content-header,
+            .main-header,
+            .main-sidebar,
+            .main-footer { display: none !important; }
         }
     </style>
 </head>
@@ -145,7 +149,9 @@ $anioTexto = $fechaEmision->format('Y');
             const contenido = document.getElementById('area-cuenta').outerHTML;
             const estilos = document.getElementById('template-styles').innerHTML;
             const ventana = window.open('', '_blank', 'width=1000,height=800');
-            ventana.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Cuenta <?= htmlspecialchars($cuenta->numeroCuenta) ?></title><script src="https://cdn.tailwindcss.com"></script><style>${estilos}</style></head><body class=\"min-h-screen font-sans text-slate-700 text-[13px] leading-tight bg-slate-100\"><div class=\"w-full px-4 pb-8 flex justify-center\">${contenido}</div></body></html>`);
+            const html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Cuenta <?= htmlspecialchars($cuenta->numeroCuenta) ?></title><script src="https://cdn.tailwindcss.com"></' + 'script><style>' + estilos + '</style></head><body class="min-h-screen font-sans text-slate-700 text-[13px] leading-tight bg-slate-100"><div class="w-full px-4 pb-8 flex justify-center">' + contenido + '</div></body></html>';
+            ventana.document.open();
+            ventana.document.write(html);
             ventana.document.close();
             ventana.focus();
             ventana.onload = () => {
