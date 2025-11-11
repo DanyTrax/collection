@@ -25,7 +25,8 @@ $valorFormateado = $cuenta->valorFormateado();
             margin: 1in;
         }
         .page-wrapper {
-            max-width: 8.27in;
+            width: 7.5in;
+            max-width: 100%;
         }
     </style>
 </head>
@@ -96,7 +97,7 @@ $valorFormateado = $cuenta->valorFormateado();
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/print-js@1.6.0/dist/print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-YcsIPk14IOHjzqvS4FHmUb4crTz/ZxKBP5ZMx1DPZWS9Vyuk3F7S3w7Dnk3a1JpN96CB2A+qsSVqZ4E9dXQtNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function imprimirCuenta() {
             printJS({
@@ -110,16 +111,17 @@ $valorFormateado = $cuenta->valorFormateado();
 
         function descargarCuenta() {
             const elemento = document.getElementById('area-cuenta');
-            html2pdf()
-                .set({
-                    margin: [10, 10, 10, 10],
-                    filename: 'cuenta-<?= htmlspecialchars($cuenta->numeroCuenta) ?>.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true },
-                    jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' }
-                })
-                .from(elemento)
-                .save();
+            if (typeof html2pdf === 'undefined') {
+                alert('No fue posible cargar el generador de PDF. Intente nuevamente.');
+                return;
+            }
+            html2pdf(elemento, {
+                margin: 10,
+                filename: 'cuenta-<?= htmlspecialchars($cuenta->numeroCuenta) ?>.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' }
+            });
         }
     </script>
 </body>
