@@ -26,7 +26,7 @@ $anioTexto = $fechaEmision->format('Y');
             border-radius: 32px;
         }
         .preview-content {
-            padding: 2.2rem 2rem;
+            padding: 0 2rem;
         }
         @page {
             size: Letter;
@@ -48,7 +48,7 @@ $anioTexto = $fechaEmision->format('Y');
                 margin: 0 !important;
             }
             .preview-content {
-                padding: 2.1rem 1.9rem !important;
+                padding: 0 1.9rem !important;
             }
         }
     </style>
@@ -91,7 +91,7 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                 </header>
 
-                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-5 space-y-1">
+                <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0 space-y-1">
                     <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Señor(a)</h3>
                     <p class="text-lg font-semibold text-slate-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
                     <?php if (!empty($datosCliente['NIT_CC'])): ?>
@@ -108,7 +108,7 @@ $anioTexto = $fechaEmision->format('Y');
                 </section>
 
                 <section class="space-y-4">
-                    <div>
+                    <div class="pt-4">
                         <h3 class="text-sm font-semibold text-slate-900 uppercase tracking-wide border-b border-slate-200 pb-2">Concepto</h3>
                         <p class="text-[12px] text-slate-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
                     </div>
@@ -129,7 +129,7 @@ $anioTexto = $fechaEmision->format('Y');
                 </section>
 
                 <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-5">
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl px-7 py-0">
                         <h4 class="text-base font-semibold text-blue-900 mb-2">Información de Pago</h4>
                         <p class="text-sm text-blue-800 whitespace-pre-wrap leading-relaxed"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                     </section>
@@ -146,7 +146,7 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                     <p class="text-xs text-slate-500 text-center">Se firma en <?= htmlspecialchars($datosEmisor['Ciudad'] ?? '________') ?>, a los <?= htmlspecialchars($diaTexto) ?> días del mes de <?= htmlspecialchars($mesNombre) ?> de <?= htmlspecialchars($anioTexto) ?>.</p>
                     <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-4">
+                        <section class="bg-slate-50 border border-slate-200 rounded-2xl px-7 py-0">
                             <h4 class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-2">Nota</h4>
                             <p class="text-[11px] text-slate-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                         </section>
@@ -176,7 +176,7 @@ $anioTexto = $fechaEmision->format('Y');
             clon.style.width = '8.27in';
             clon.style.maxWidth = '8.27in';
             clon.style.margin = '0 auto';
-            clon.querySelector('.preview-content').style.padding = '2.5rem 2.2rem';
+            clon.querySelector('.preview-content').style.padding = '0 1.9rem';
             clon.classList.add('no-print');
             document.body.appendChild(clon);
             return clon;
