@@ -168,9 +168,16 @@ $anioTexto = $fechaEmision->format('Y');
             clon.style.maxWidth = '8.27in';
             clon.style.margin = '0 auto';
             clon.querySelector('.preview-content').style.padding = '1rem 1.9rem';
-            clon.classList.add('no-print');
-            document.body.appendChild(clon);
-            return clon;
+
+            const styleTag = document.createElement('style');
+            styleTag.innerHTML = document.getElementById('template-styles').innerHTML;
+
+            const contenedor = document.createElement('div');
+            contenedor.id = id + '-pdf-wrapper';
+            contenedor.appendChild(styleTag);
+            contenedor.appendChild(clon);
+            document.body.appendChild(contenedor);
+            return contenedor;
         }
 
         function descargarCuenta() {
