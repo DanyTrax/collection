@@ -156,17 +156,10 @@ $anioTexto = $fechaEmision->format('Y');
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/print-js@1.6.0/dist/print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function imprimirCuenta() {
-            printJS({
-                printable: 'area-cuenta',
-                type: 'html',
-                scanStyles: true,
-                documentTitle: 'Cuenta <?= htmlspecialchars($cuenta->numeroCuenta) ?>',
-                style: '@page { size: Letter; margin: 15mm; }'
-            });
+            window.print();
         }
 
         function prepararNodoParaPDF(id) {
