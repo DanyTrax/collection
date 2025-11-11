@@ -38,100 +38,108 @@ $anioTexto = $fechaEmision->format('Y');
         }
         .page-wrapper {
             width: 8.5in;
+            height: 11in;
             max-width: 100%;
-            padding: 0.65in 0.7in;
+            padding: 0.5in 0.6in;
+        }
+        .section-tight > * + * {
+            margin-top: 0.6rem;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans p-4 md:p-6 text-gray-700">
+<body class="bg-gray-100 font-sans p-4 md:p-6 text-gray-700 text-[0.82rem] leading-relaxed">
     <div class="max-w-4xl mx-auto mb-4 flex flex-col sm:flex-row gap-2 justify-end no-print">
         <button onclick="imprimirCuenta()" class="bg-emerald-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-emerald-700 transition">Imprimir</button>
         <button onclick="descargarCuenta()" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition">Descargar PDF</button>
     </div>
 
-    <div id="area-cuenta" class="page-wrapper mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200 text-[0.85rem] leading-relaxed">
-        <div>
-            <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 pb-5 border-b border-gray-200">
-                <div class="space-y-1">
-                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
-                    <?php if (!empty($datosEmisor['Telefono'])): ?>
-                        <p class="text-sm text-gray-500">Tel. <?= htmlspecialchars($datosEmisor['Telefono']) ?></p>
-                    <?php endif; ?>
-                    <?php if (!empty($datosEmisor['Direccion'])): ?>
-                        <p class="text-sm text-gray-500"><?= htmlspecialchars($datosEmisor['Direccion']) ?></p>
-                    <?php endif; ?>
-                    <?php if (!empty($datosEmisor['Email'])): ?>
-                        <p class="text-sm text-gray-500">E-Mail: <?= htmlspecialchars($datosEmisor['Email']) ?></p>
-                    <?php endif; ?>
-                    <?php if (!empty($datosEmisor['DocumentoIdentidad'])): ?>
-                        <p class="text-sm text-gray-500">Documento: <?= htmlspecialchars($datosEmisor['DocumentoIdentidad']) ?></p>
-                    <?php endif; ?>
-                </div>
-                <div class="text-start md:text-end space-y-3">
-                    <div>
-                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Cuenta de Cobro</span>
-                        <h1 class="text-3xl font-black text-gray-900 tracking-[0.35em]">Nº <?= htmlspecialchars($cuenta->numeroCuenta) ?></h1>
-                    </div>
-                    <div class="text-sm text-gray-500 leading-normal">
-                        <p><span class="font-semibold">Ciudad y fecha:</span> <?= htmlspecialchars(($datosEmisor['Ciudad'] ?? '')) ?>, <?= htmlspecialchars($cuenta->fechaEmision) ?></p>
-                        <?php if (!empty($cuenta->fechaVencimiento)): ?>
-                            <p><span class="font-semibold">Vence:</span> <?= htmlspecialchars($cuenta->fechaVencimiento) ?></p>
+    <div id="area-cuenta" class="page-wrapper mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
+        <div class="h-full flex flex-col">
+            <header class="section-tight pb-4 border-b border-gray-200">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div class="space-y-1">
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
+                        <?php if (!empty($datosEmisor['Telefono'])): ?>
+                            <p class="text-sm text-gray-500">Tel. <?= htmlspecialchars($datosEmisor['Telefono']) ?></p>
                         <?php endif; ?>
-                        <p><span class="font-semibold">Estado:</span> <?= htmlspecialchars($cuenta->estado) ?></p>
+                        <?php if (!empty($datosEmisor['Direccion'])): ?>
+                            <p class="text-sm text-gray-500"><?= htmlspecialchars($datosEmisor['Direccion']) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($datosEmisor['Email'])): ?>
+                            <p class="text-sm text-gray-500">E-Mail: <?= htmlspecialchars($datosEmisor['Email']) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($datosEmisor['DocumentoIdentidad'])): ?>
+                            <p class="text-sm text-gray-500">Documento: <?= htmlspecialchars($datosEmisor['DocumentoIdentidad']) ?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="text-start md:text-end space-y-3">
+                        <div>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Cuenta de Cobro</span>
+                            <h1 class="text-3xl font-black text-gray-900 tracking-[0.35em]">Nº <?= htmlspecialchars($cuenta->numeroCuenta) ?></h1>
+                        </div>
+                        <div class="text-sm text-gray-500 leading-normal space-y-1">
+                            <p><span class="font-semibold">Ciudad y fecha:</span> <?= htmlspecialchars(($datosEmisor['Ciudad'] ?? '')) ?>, <?= htmlspecialchars($cuenta->fechaEmision) ?></p>
+                            <?php if (!empty($cuenta->fechaVencimiento)): ?>
+                                <p><span class="font-semibold">Vence:</span> <?= htmlspecialchars($cuenta->fechaVencimiento) ?></p>
+                            <?php endif; ?>
+                            <p><span class="font-semibold">Estado:</span> <?= htmlspecialchars($cuenta->estado) ?></p>
+                        </div>
                     </div>
                 </div>
             </header>
 
-            <section class="mt-5 mb-5 bg-gray-50 border border-gray-200 rounded-2xl p-5">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Señor(a)</h3>
-                <p class="text-lg font-semibold text-gray-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
-                <?php if (!empty($datosCliente['NIT_CC'])): ?>
-                    <p class="text-sm text-gray-600">NIT / CC: <?= htmlspecialchars($datosCliente['NIT_CC']) ?></p>
-                <?php endif; ?>
-                <?php if (!empty($datosCliente['Direccion'])): ?>
-                    <p class="text-sm text-gray-600"><?= htmlspecialchars($datosCliente['Direccion']) ?></p>
-                <?php endif; ?>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm text-gray-600">
-                    <?php if (!empty($datosCliente['Email'])): ?>
-                        <p><span class="font-semibold">Correo:</span> <?= htmlspecialchars($datosCliente['Email']) ?></p>
+            <main class="flex-1 section-tight py-4">
+                <section class="bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Señor(a)</h3>
+                    <p class="text-lg font-semibold text-gray-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
+                    <?php if (!empty($datosCliente['NIT_CC'])): ?>
+                        <p class="text-sm text-gray-600">NIT / CC: <?= htmlspecialchars($datosCliente['NIT_CC']) ?></p>
                     <?php endif; ?>
-                    <?php if (!empty($datosCliente['Telefono'])): ?>
-                        <p><span class="font-semibold">Teléfono:</span> <?= htmlspecialchars($datosCliente['Telefono']) ?></p>
+                    <?php if (!empty($datosCliente['Direccion'])): ?>
+                        <p class="text-sm text-gray-600"><?= htmlspecialchars($datosCliente['Direccion']) ?></p>
                     <?php endif; ?>
-                    <?php if (!empty($datosCliente['Ciudad'])): ?>
-                        <p><span class="font-semibold">Ciudad:</span> <?= htmlspecialchars($datosCliente['Ciudad']) ?></p>
-                    <?php endif; ?>
-                </div>
-            </section>
-
-            <section class="mb-6">
-                <h3 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-4 border-b border-gray-200 pb-2">Concepto</h3>
-                <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
-
-                <div class="mt-5 flex justify-end">
-                    <table class="w-full md:w-1/2 text-right text-sm border border-gray-200 rounded-xl overflow-hidden">
-                        <tbody>
-                            <tr class="bg-gray-50 text-gray-600">
-                                <td class="p-3 font-semibold">Subtotal</td>
-                                <td class="p-3 font-mono text-gray-800">$<?= $valorFormateado ?></td>
-                            </tr>
-                            <tr class="border-t-2 border-gray-900 text-gray-900">
-                                <td class="p-4 text-lg font-bold uppercase">Valor total</td>
-                                <td class="p-4 text-lg font-bold font-mono">$<?= $valorFormateado ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                <section class="bg-blue-50 border border-blue-200 rounded-2xl p-5 mb-6">
-                    <h4 class="text-base font-semibold text-blue-900 mb-3">Información de Pago</h4>
-                    <p class="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm text-gray-600">
+                        <?php if (!empty($datosCliente['Email'])): ?>
+                            <p><span class="font-semibold">Correo:</span> <?= htmlspecialchars($datosCliente['Email']) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($datosCliente['Telefono'])): ?>
+                            <p><span class="font-semibold">Teléfono:</span> <?= htmlspecialchars($datosCliente['Telefono']) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($datosCliente['Ciudad'])): ?>
+                            <p><span class="font-semibold">Ciudad:</span> <?= htmlspecialchars($datosCliente['Ciudad']) ?></p>
+                        <?php endif; ?>
+                    </div>
                 </section>
-            <?php endif; ?>
 
-            <footer class="pt-10 border-t border-gray-200">
+                <section class="mb-6">
+                    <h3 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-4 border-b border-gray-200 pb-2">Concepto</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cuenta->concepto)) ?></p>
+
+                    <div class="mt-5 flex justify-end">
+                        <table class="w-full md:w-1/2 text-right text-sm border border-gray-200 rounded-xl overflow-hidden">
+                            <tbody>
+                                <tr class="bg-gray-50 text-gray-600">
+                                    <td class="p-3 font-semibold">Subtotal</td>
+                                    <td class="p-3 font-mono text-gray-800">$<?= $valorFormateado ?></td>
+                                </tr>
+                                <tr class="border-t-2 border-gray-900 text-gray-900">
+                                    <td class="p-4 text-lg font-bold uppercase">Valor total</td>
+                                    <td class="p-4 text-lg font-bold font-mono">$<?= $valorFormateado ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-5">
+                        <h4 class="text-base font-semibold text-blue-900 mb-3">Información de Pago</h4>
+                        <p class="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
+                    </section>
+                <?php endif; ?>
+            </main>
+
+            <footer class="pt-4 border-t border-gray-200 section-tight">
                 <div class="mb-5 text-center">
                     <?php if (!empty($datosEmisor['FirmaImagenURL'])): ?>
                         <img src="<?= htmlspecialchars($datosEmisor['FirmaImagenURL']) ?>" alt="Firma" class="h-20 mx-auto mb-2 object-contain">
@@ -146,7 +154,7 @@ $anioTexto = $fechaEmision->format('Y');
             </footer>
 
             <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                <section class="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                <section class="bg-gray-50 border border-gray-200 rounded-2xl p-5">
                     <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Nota</h4>
                     <p class="text-xs text-gray-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                 </section>
