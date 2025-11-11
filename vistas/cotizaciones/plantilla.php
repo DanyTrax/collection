@@ -37,17 +37,16 @@ $anioTexto = $fechaEmision->format('Y');
             background: #f1f5f9;
         }
         .page-wrapper {
-            width: 8.5in;
-            height: 11in;
-            max-width: 100%;
-            padding: 0.5in 0.6in;
+            width: min(8.5in, 100%);
+            min-height: 11in;
+            padding: 0.45in 0.5in;
         }
         .section-tight > * + * {
-            margin-top: 0.6rem;
+            margin-top: 0.45rem;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans p-4 md:p-6 text-gray-700 text-[0.82rem] leading-relaxed">
+<body class="bg-gray-100 font-sans p-4 md:p-6 text-gray-700 text-[0.78rem] leading-relaxed">
     <div class="max-w-4xl mx-auto mb-4 flex flex-col sm:flex-row gap-2 justify-end no-print">
         <button onclick="imprimirCotizacion()" class="bg-emerald-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-emerald-700 transition">Imprimir</button>
         <button onclick="descargarCotizacion()" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition">Descargar PDF</button>
@@ -56,7 +55,7 @@ $anioTexto = $fechaEmision->format('Y');
     <div id="area-cotizacion" class="page-wrapper mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
         <div class="h-full flex flex-col">
             <header class="section-tight pb-4 border-b border-gray-200">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-3">
                     <div class="space-y-1">
                         <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></h2>
                         <?php if (!empty($datosEmisor['Telefono'])): ?>
@@ -77,7 +76,7 @@ $anioTexto = $fechaEmision->format('Y');
                             <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Cotización</span>
                             <h1 class="text-3xl font-black text-gray-900 tracking-[0.35em]">Nº <?= htmlspecialchars($cotizacion->numeroCotizacion) ?></h1>
                         </div>
-                        <div class="text-sm text-gray-500 leading-normal space-y-1">
+                        <div class="text-xs text-gray-500 leading-normal space-y-1">
                             <p><span class="font-semibold">Ciudad y fecha:</span> <?= htmlspecialchars(($datosEmisor['Ciudad'] ?? '')) ?>, <?= htmlspecialchars($cotizacion->fechaEmision) ?></p>
                             <?php if (!empty($cotizacion->fechaVencimiento)): ?>
                                 <p><span class="font-semibold">Válida hasta:</span> <?= htmlspecialchars($cotizacion->fechaVencimiento) ?></p>
@@ -89,7 +88,7 @@ $anioTexto = $fechaEmision->format('Y');
             </header>
 
             <main class="flex-1 section-tight py-4">
-                <section class="bg-gray-50 border border-gray-200 rounded-2xl p-5">
+                <section class="bg-gray-50 border border-gray-200 rounded-2xl p-4">
                     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Cliente</h3>
                     <p class="text-lg font-semibold text-gray-900"><?= htmlspecialchars($datosCliente['NombreCliente'] ?? '') ?></p>
                     <?php if (!empty($datosCliente['NIT_CC'])): ?>
@@ -111,20 +110,20 @@ $anioTexto = $fechaEmision->format('Y');
                     </div>
                 </section>
 
-                <section class="mb-6">
-                    <h3 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-4 border-b border-gray-200 pb-2">Concepto</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->concepto)) ?></p>
+                <section>
+                    <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-3 border-b border-gray-200 pb-2">Concepto</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->concepto)) ?></p>
 
                     <div class="mt-5 flex justify-end">
-                        <table class="w-full md:w-1/2 text-right text-sm border border-gray-200 rounded-xl overflow-hidden">
+                        <table class="w-full md:w-1/2 text-right text-xs border border-gray-200 rounded-xl overflow-hidden">
                             <tbody>
                                 <tr class="bg-gray-50 text-gray-600">
                                     <td class="p-3 font-semibold">Subtotal</td>
                                     <td class="p-3 font-mono text-gray-800">$<?= $valorFormateado ?></td>
                                 </tr>
                                 <tr class="border-t-2 border-gray-900 text-gray-900">
-                                    <td class="p-4 text-lg font-bold uppercase">Valor total</td>
-                                    <td class="p-4 text-lg font-bold font-mono">$<?= $valorFormateado ?></td>
+                                    <td class="p-4 text-base font-bold uppercase">Valor total</td>
+                                    <td class="p-4 text-base font-bold font-mono">$<?= $valorFormateado ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -132,14 +131,14 @@ $anioTexto = $fechaEmision->format('Y');
                 </section>
 
                 <?php if (!empty($cotizacion->terminos)): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-5">
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
                         <h4 class="text-base font-semibold text-blue-900 mb-3">Términos y Condiciones</h4>
                         <p class="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($cotizacion->terminos)) ?></p>
                     </section>
                 <?php endif; ?>
 
                 <?php if (!empty($datosEmisor['InformacionBancaria'])): ?>
-                    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-5">
+                    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
                         <h4 class="text-base font-semibold text-blue-900 mb-3">Información de Pago</h4>
                         <p class="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['InformacionBancaria'])) ?></p>
                     </section>
@@ -149,21 +148,20 @@ $anioTexto = $fechaEmision->format('Y');
             <footer class="pt-4 border-t border-gray-200 section-tight">
                 <div class="mb-5 text-center">
                     <?php if (!empty($datosEmisor['FirmaImagenURL'])): ?>
-                        <img src="<?= htmlspecialchars($datosEmisor['FirmaImagenURL']) ?>" alt="Firma" class="h-20 mx-auto mb-2 object-contain">
+                        <img src="<?= htmlspecialchars($datosEmisor['FirmaImagenURL']) ?>" alt="Firma" class="h-16 mx-auto mb-2 object-contain">
                     <?php else: ?>
                         <div class="h-16 w-48 border-b border-gray-300 mx-auto mb-2 flex items-end justify-center">
                             <span class="text-xs italic text-gray-400">[Firma]</span>
                         </div>
                     <?php endif; ?>
-                    <p class="text-sm font-semibold text-gray-700"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></p>
+                    <p class="text-xs font-semibold text-gray-700"><?= htmlspecialchars($datosEmisor['NombreCompleto'] ?? '') ?></p>
                 </div>
                 <p class="text-xs text-gray-500 text-center">Se expide en <?= htmlspecialchars($datosEmisor['Ciudad'] ?? '________') ?>, a los <?= htmlspecialchars($diaTexto) ?> días del mes de <?= htmlspecialchars($mesNombre) ?> de <?= htmlspecialchars($anioTexto) ?>.</p>
             </footer>
 
-            <?php if (!empty($datosEmisor['NotaLegal'])): ?>
-                <section class="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-5">
-                    <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Nota</h4>
-                    <p class="text-xs text-gray-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
+                <section class="bg-gray-50 border border-gray-200 rounded-2xl p-4">
+                    <h4 class="text-[0.65rem] font-semibold text-gray-500 uppercase tracking-wide mb-2">Nota</h4>
+                    <p class="text-[0.65rem] text-gray-500 leading-relaxed whitespace-pre-wrap"><?= nl2br(htmlspecialchars($datosEmisor['NotaLegal'])) ?></p>
                 </section>
             <?php endif; ?>
         </div>
